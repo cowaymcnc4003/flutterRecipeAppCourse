@@ -1,0 +1,1 @@
+C:\project\flutter_cleancode\flutter_recipe_app_course\build\app\intermediates\cxx\Debug\2i6b6i3b\obj\armeabi-v7a
