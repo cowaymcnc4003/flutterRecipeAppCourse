@@ -8,10 +8,10 @@ import 'package:flutter_recipe_app_course/domain/use_case/search_recipes_use_cas
 import 'package:flutter_recipe_app_course/presentation/search/screen/search_screen.dart';
 import 'package:flutter_recipe_app_course/presentation/search/search_view_model.dart';
 
-final LocalStorage _localStoreage = DefaultLocalStorage();
+final LocalStorage _localStorage = DefaultLocalStorage();
 
 final _recentSearchRecipeRepository =
-    MockRecentSearchRepositoryImpl(localStorage: _localStoreage);
+    MockRecentSearchRepositoryImpl(localStorage: _localStorage);
 
 class SearchRoot extends StatelessWidget {
   const SearchRoot({super.key});
@@ -22,9 +22,9 @@ class SearchRoot extends StatelessWidget {
       recentSearchRecipeRepository: _recentSearchRecipeRepository,
       searchRecipesUseCase: SearchRecipesUseCase(
         recipeRepository: MockRecipeRepositoryImpl(
-          recipeDataSouce: RemoteRecipeDataSourceImpl(),
+          recipeDataSource: RemoteRecipeDataSourceImpl(),
         ),
-        localStoreage: _localStoreage,
+        localStorage: _localStorage,
       ),
     );
     return ListenableBuilder(

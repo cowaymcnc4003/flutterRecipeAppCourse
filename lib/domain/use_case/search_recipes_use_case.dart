@@ -8,9 +8,9 @@ class SearchRecipesUseCase {
 
   const SearchRecipesUseCase({
     required RecipeRepository recipeRepository,
-    required LocalStorage localStoreage,
+    required LocalStorage localStorage,
   })  : _recipeRepository = recipeRepository,
-        _localStorage = localStoreage;
+        _localStorage = localStorage;
 
   Future<List<Recipe>> execute(String query) async {
     final results = (await _recipeRepository.getRecipes())

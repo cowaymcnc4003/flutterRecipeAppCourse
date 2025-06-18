@@ -8,7 +8,7 @@ import 'package:flutter_recipe_app_course/presentation/saved_recipes/screen/save
 
 final _getSavedRecipesUseCase = GetSavedRecipesUseCase(
   recipeRepository:
-      MockRecipeRepositoryImpl(recipeDataSouce: RemoteRecipeDataSourceImpl()),
+      MockRecipeRepositoryImpl(recipeDataSource: RemoteRecipeDataSourceImpl()),
   bookmarkRepository: MockBookmarkRepositoryImpl(),
 );
 
