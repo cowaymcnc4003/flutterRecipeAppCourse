@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_app_course/core/di/di_setup.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/big_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/filter_button.dart';
 import 'package:flutter_recipe_app_course/core/presentation/components/input_field.dart';
@@ -13,6 +14,7 @@ import 'core/presentation/components/medium_button.dart';
 import 'core/presentation/components/small_button.dart';
 
 void main() {
+  diSetup();
   runApp(const MyApp());
 }
 
@@ -61,7 +63,7 @@ class MyHomePage extends StatelessWidget {
                     score: 3,
                     actionName: 'Send',
                     onChange: (score) {
-                      print(score);
+                      // print(score);
                     },
                   );
                 },
@@ -76,7 +78,7 @@ class MyHomePage extends StatelessWidget {
             ],
             selectedIndex: 0,
             onChange: (int index) {
-              print('TwoTab : $index');
+              // print('TwoTab : $index');
             },
           ),
           const RatingButton('text'),
@@ -88,7 +90,7 @@ class MyHomePage extends StatelessWidget {
             child: BigButton(
               'Big Button',
               onPressed: () {
-                print('BigButton');
+                // print('BigButton');
               },
             ),
           ),
@@ -97,7 +99,7 @@ class MyHomePage extends StatelessWidget {
             child: MediumButton(
               'Medium',
               onPressed: () {
-                print('Medium Button');
+                // print('Medium Button');
               },
             ),
           ),
@@ -106,7 +108,7 @@ class MyHomePage extends StatelessWidget {
             child: SmallButton(
               'Small',
               onPressed: () {
-                print('Small Button');
+                // print('Small Button');
               },
             ),
           ),
