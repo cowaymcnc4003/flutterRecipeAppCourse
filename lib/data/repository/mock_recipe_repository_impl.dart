@@ -7,8 +7,8 @@ class MockRecipeRepositoryImpl implements RecipeRepository {
   final RecipeDataSource _recipeDataSource;
 
   const MockRecipeRepositoryImpl({
-    required RecipeDataSource recipeDataSouce,
-  }) : _recipeDataSource = recipeDataSouce;
+    required RecipeDataSource recipeDataSource,
+  }) : _recipeDataSource = recipeDataSource;
 
   @override
   Future<Recipe?> getRecipe(int id) async {
