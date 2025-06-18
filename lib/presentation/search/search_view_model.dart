@@ -55,6 +55,6 @@ class SearchViewModel with ChangeNotifier {
     await searchRecipes(state.query);
     notifyListeners();
 
-    print(state.toString());
+    // print(state.toString());
   }
 }
