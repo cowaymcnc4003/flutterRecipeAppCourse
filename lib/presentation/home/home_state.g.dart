@@ -12,9 +12,14 @@ HomeState _$HomeStateFromJson(Map<String, dynamic> json) => HomeState(
               ?.map((e) => e as String)
               .toList() ??
           const [],
+      dishes: (json['dishes'] as List<dynamic>?)
+              ?.map((e) => Recipe.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$HomeStateToJson(HomeState instance) => <String, dynamic>{
       'selectedCategory': instance.selectedCategory,
       'categorys': instance.categorys,
+      'dishes': instance.dishes,
     };
