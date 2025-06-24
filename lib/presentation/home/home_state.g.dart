@@ -20,6 +20,7 @@ HomeState _$HomeStateFromJson(Map<String, dynamic> json) => HomeState(
               ?.map((e) => Recipe.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const [],
+      name: json['name'] as String? ?? "",
     );
 
 Map<String, dynamic> _$HomeStateToJson(HomeState instance) => <String, dynamic>{
@@ -27,4 +28,5 @@ Map<String, dynamic> _$HomeStateToJson(HomeState instance) => <String, dynamic>{
       'categorys': instance.categorys,
       'dishes': instance.dishes,
       'newRecipes': instance.newRecipes,
+      'name': instance.name,
     };

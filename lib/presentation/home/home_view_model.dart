@@ -8,6 +8,7 @@ import 'package:flutter_recipe_app_course/domain/model/recipe.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_categories_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_dishes_by_category_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_new_recipes_use_case.dart';
+import 'package:flutter_recipe_app_course/presentation/home/home_action.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_state.dart';
 
 class HomeViewModel with ChangeNotifier {
@@ -30,14 +31,7 @@ class HomeViewModel with ChangeNotifier {
     _fetchNewRecipes();
   }
 
-  HomeState _state = const HomeState(categorys: [
-    'All',
-    'Indian',
-    'Italian',
-    'Asian',
-    'Chinese',
-    'Japanese',
-  ], selectedCategory: 'All');
+  HomeState _state = const HomeState(name: 'Jaga');
   HomeState get state => _state;
 
   void _fetchCategories() async {
@@ -91,9 +85,18 @@ class HomeViewModel with ChangeNotifier {
     }
   }
 
-  void onSelectCategory(String category) async {
+  void _onSelectCategory(String category) async {
     _state = state.copyWith(selectedCategory: category);
     notifyListeners();
     await _fetchDishesBycategory(category);
+  }
+
+  void onAction(HomeAction action) async {
+    switch (action) {
+      case OnTapSearchFiled():
+        return;
+      case OnSelectCategory():
+        _onSelectCategory(action.category);
+    }
   }
 }

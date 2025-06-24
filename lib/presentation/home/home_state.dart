@@ -12,12 +12,14 @@ class HomeState with _$HomeState {
   final List<String> categorys;
   final List<Recipe> dishes;
   final List<Recipe> newRecipes;
+  final String name;
 
   const HomeState({
     this.selectedCategory = 'All',
     this.categorys = const [],
     this.dishes = const [],
     this.newRecipes = const [],
+    this.name = "",
   });
 
   factory HomeState.fromJson(Map<String, dynamic> json) =>
