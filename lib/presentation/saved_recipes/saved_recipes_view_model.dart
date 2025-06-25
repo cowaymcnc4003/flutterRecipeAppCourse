@@ -1,9 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_recipe_app_course/core/domain/error/result.dart';
-import 'package:flutter_recipe_app_course/domain/error/bookmark_error.dart';
-import 'package:flutter_recipe_app_course/domain/model/recipe.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_saved_recipes_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/toggle_bookmark_recipe_use_case.dart';
 import 'package:flutter_recipe_app_course/presentation/saved_recipes/saved_recipes_action.dart';
@@ -41,8 +38,6 @@ class SavedRecipesViewModel with ChangeNotifier {
       case OnTapFavorite():
         _onTapFavorite(action.recipe.id);
       case OnTapRecipe():
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
