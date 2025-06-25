@@ -1,7 +1,15 @@
 // Recipe model class
 import 'recipe_ingredient.dart';
 
-class Recipe {
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'recipe.freezed.dart';
+part 'recipe.g.dart';
+
+// ignore_for_file: annotate_overrides
+@freezed
+@JsonSerializable()
+class Recipe with _$Recipe {
   final String category;
   final int id;
   final String name;
@@ -10,8 +18,9 @@ class Recipe {
   final String time;
   final double rating;
   final List<RecipeIngredient> ingredients;
+  final bool isFavorite;
 
-  Recipe({
+  const Recipe({
     required this.category,
     required this.id,
     required this.name,
@@ -20,42 +29,9 @@ class Recipe {
     required this.time,
     required this.rating,
     required this.ingredients,
+    this.isFavorite = false,
   });
 
-  factory Recipe.fromJson(Map<String, dynamic> json) {
-    return Recipe(
-      category: json['category'] as String,
-      id: json['id'] as int,
-      name: json['name'] as String,
-      image: json['image'] as String,
-      chef: json['chef'] as String,
-      time: json['time'] as String,
-      rating: json['rating'].toDouble(),
-      ingredients: (json['ingredients'] as List<dynamic>)
-          .map((e) => RecipeIngredient.fromJson(e))
-          .toList(),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'category': category,
-      'id': id,
-      'name': name,
-      'image': image,
-      'chef': chef,
-      'time': time,
-      'rating': rating,
-      'ingredients': ingredients.map((e) => e.toJson()).toList(),
-    };
-  }
-
-  @override
-  String toString() {
-    return 'Recipe(category: $category, id: $id, name: $name, chef: $chef, '
-        'time: $time, rating: $rating, ingredients: $ingredients)';
-  }
+  factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
+  Map<String, dynamic> toJson() => _$RecipeToJson(this);
 }
-
-
-

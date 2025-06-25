@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app_course/core/domain/error/network_error.dart';
 import 'package:flutter_recipe_app_course/core/domain/error/result.dart';
+import 'package:flutter_recipe_app_course/domain/error/bookmark_error.dart';
 import 'package:flutter_recipe_app_course/domain/error/new_recipe_error.dart';
 import 'package:flutter_recipe_app_course/domain/model/recipe.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_categories_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_dishes_by_category_use_case.dart';
 import 'package:flutter_recipe_app_course/domain/use_case/get_new_recipes_use_case.dart';
+import 'package:flutter_recipe_app_course/domain/use_case/toggle_bookmark_recipe_use_case.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_action.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_state.dart';
 
@@ -15,6 +17,8 @@ class HomeViewModel with ChangeNotifier {
   final GetCategoriesUseCase _getCategoriesUseCase;
   final GetDishesByCategoryUseCase _getDishesByCategoryUseCase;
   final GetNewRecipesUseCase _getNewRecipesUseCase;
+  final ToggleBookmarkRecipeUseCase _toggleBookmarkRecipeUseCase;
+  StreamSubscription? _streamSubscription;
 
   final _eventController = StreamController<NetworkError>();
 
@@ -24,9 +28,11 @@ class HomeViewModel with ChangeNotifier {
     required GetCategoriesUseCase getCategoriesUseCase,
     required GetDishesByCategoryUseCase getDishesByCategoryUseCase,
     required GetNewRecipesUseCase getNewRecipesUseCase,
+    required ToggleBookmarkRecipeUseCase toggleBookmarkRecipeUseCase,
   })  : _getCategoriesUseCase = getCategoriesUseCase,
         _getDishesByCategoryUseCase = getDishesByCategoryUseCase,
-        _getNewRecipesUseCase = getNewRecipesUseCase {
+        _getNewRecipesUseCase = getNewRecipesUseCase,
+        _toggleBookmarkRecipeUseCase = toggleBookmarkRecipeUseCase {
     _fetchCategories();
     _fetchNewRecipes();
   }
@@ -59,9 +65,11 @@ class HomeViewModel with ChangeNotifier {
   }
 
   Future<void> _fetchDishesBycategory(String category) async {
-    final dishes = await _getDishesByCategoryUseCase.execute(category);
-    _state = state.copyWith(dishes: dishes);
-    notifyListeners();
+    _streamSubscription =
+        _getDishesByCategoryUseCase.execute(category).listen((dishes) {
+      _state = state.copyWith(dishes: dishes);
+      notifyListeners();
+    });
   }
 
   Future<void> _fetchNewRecipes() async {
@@ -91,12 +99,34 @@ class HomeViewModel with ChangeNotifier {
     await _fetchDishesBycategory(category);
   }
 
+  void _onTapFavorite(Recipe recipe) async {
+    final result = await _toggleBookmarkRecipeUseCase.execute(recipe.id);
+    switch (result) {
+      case ResultSuccess<List<Recipe>, BookmarkError>():
+        _state = state.copyWith(dishes: result.data);
+      case ResultError<List<Recipe>, BookmarkError>():
+        switch (result.error) {
+          case BookmarkError.notFound:
+          case BookmarkError.saveFailed:
+          case BookmarkError.unknown:
+        }
+    }
+  }
+
   void onAction(HomeAction action) async {
     switch (action) {
       case OnTapSearchFiled():
         return;
       case OnSelectCategory():
         _onSelectCategory(action.category);
+      case OnTapFavorite():
+        _onTapFavorite(action.recipe);
     }
+  }
+
+  @override
+  void dispose() {
+    _streamSubscription?.cancel();
+    super.dispose();
   }
 }

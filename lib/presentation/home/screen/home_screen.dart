@@ -5,6 +5,7 @@ import 'package:flutter_recipe_app_course/core/presentation/components/new_recip
 import 'package:flutter_recipe_app_course/core/presentation/components/recipe_category_selector.dart';
 
 import 'package:flutter_recipe_app_course/core/presentation/components/search_input_filed.dart';
+import 'package:flutter_recipe_app_course/domain/model/recipe.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_action.dart';
 import 'package:flutter_recipe_app_course/presentation/home/home_state.dart';
 import 'package:flutter_recipe_app_course/ui/color_styles.dart';
@@ -122,7 +123,12 @@ class HomeScreen extends StatelessWidget {
                   children: state.dishes
                       .map((e) => Padding(
                           padding: const EdgeInsets.only(right: 15),
-                          child: DishCard(recipe: e, isFavorite: true)))
+                          child: DishCard(
+                            recipe: e,
+                            onTapFavorite: (Recipe recipe) {
+                              onAction(HomeAction.onTapFavorite(recipe));
+                            },
+                          )))
                       .toList(),
                 ),
               ),
