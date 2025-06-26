@@ -48,10 +48,8 @@ class IngredientViewModel with ChangeNotifier {
         log('${action.rate}');
       case OnTapFollow():
       // case OnTapReview():
-      //   // TODO: Handle this case.
       // throw UnimplementedError();
       case OnTapUnsave():
-        // TODO: Handle this case.
         throw UnimplementedError();
     }
   }
