@@ -10,4 +10,8 @@ sealed class IngredientAction with _$IngredientAction {
   factory IngredientAction.onTapProcedure() = OnTapProcedure;
   factory IngredientAction.onTapFollow(Recipe recipe) = OnTapFollow;
   factory IngredientAction.loadRecipe(int recipeId) = LoadRecipe;
+  factory IngredientAction.onTapShareMenu(String link) = OnTapShareMenu;
+  factory IngredientAction.onTapRateRecipe(Recipe recipe, int rate) =
+      OnTapRateRecipe;
+  factory IngredientAction.onTapUnsave(Recipe recipe) = OnTapUnsave;
 }

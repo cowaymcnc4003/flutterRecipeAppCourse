@@ -25,6 +25,12 @@ class _RatingDialogState extends State<RatingDialog> {
   int _value = 0;
 
   @override
+  void initState() {
+    super.initState();
+    _value = widget.score;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Center(
@@ -46,9 +52,11 @@ class _RatingDialogState extends State<RatingDialog> {
           widget.actionName,
           color: ColorStyles.rating,
           textStyle: TextStyles.smallerTextRegular,
-          onPressed: () {
-            widget.onChange(_value);
-          },
+          onPressed: _value == 0
+              ? null
+              : () {
+                  widget.onChange(_value);
+                },
         ),
       ],
     );
